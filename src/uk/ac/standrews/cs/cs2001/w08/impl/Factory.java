@@ -6,7 +6,6 @@ import uk.ac.standrews.cs.cs2001.w08.interfaces.IPriorityQueue;
 
 /**
  * This class implements a singleton factory.
- *
  */
 public final class Factory implements IFactory {
 
@@ -18,6 +17,7 @@ public final class Factory implements IFactory {
 
     /**
      * Method which returns an instance of the singleton Factory class.
+     *
      * @return the instance of the Factory
      */
     public static IFactory getInstance() {

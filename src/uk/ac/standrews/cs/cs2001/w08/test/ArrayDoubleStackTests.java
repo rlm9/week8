@@ -23,16 +23,18 @@ public class ArrayDoubleStackTests extends AbstractFactoryClient {
     private static IDoubleStack defaultDoubleStack;
     private static IStack defaultFirstStack;
     private static IStack defaultSecoondStack;
+
     /**
      * Tests that the factory constructs a non-null double stack.
      */
     @Before
-    public void before(){
+    public void before() {
 
-        defaultDoubleStack=getFactory().makeDoubleStack(DEFAULT_MAX_SIZE);
-        defaultFirstStack=defaultDoubleStack.getFirstStack();
-        defaultSecoondStack=defaultDoubleStack.getSecondStack();
+        defaultDoubleStack = getFactory().makeDoubleStack(DEFAULT_MAX_SIZE);
+        defaultFirstStack = defaultDoubleStack.getFirstStack();
+        defaultSecoondStack = defaultDoubleStack.getSecondStack();
     }
+
     @Test
     public void factoryReturnsNonNullDoubleStackObject() {
 
@@ -53,137 +55,150 @@ public class ArrayDoubleStackTests extends AbstractFactoryClient {
 //    }
 
     //Tests that the stack is empty upon initialisation
-    private void testStackSizeEmpty(IStack stack){
+    private void testStackSizeEmpty(IStack stack) {
         assertTrue(stack.isEmpty());
         assertTrue(stack.size() == 0);
     }
+
     @Test
-    public void testFirstEmpty (){
+    public void testFirstEmpty() {
         testStackSizeEmpty(defaultFirstStack);
     }
 
     @Test
-    public void testSecondEmpty(){
+    public void testSecondEmpty() {
         testStackSizeEmpty(defaultFirstStack);
     }
+
     //A loop tp push a given number of objects onto a stack
-    private void pushLoop(int loop,IStack stack) throws StackOverflowException{
-        for(int i=0;i<loop;i++){
+    private void pushLoop(int loop, IStack stack) throws StackOverflowException {
+        for (int i = 0; i < loop; i++) {
             stack.push(new Object());
         }
     }
 
     //tests that the size and is empty methods work with elements in the stack
-    private void sizeTest(IStack stack,int size)throws StackOverflowException{
-        pushLoop(size,stack);
-        assertTrue(stack.size()==size);
+    private void sizeTest(IStack stack, int size) throws StackOverflowException {
+        pushLoop(size, stack);
+        assertTrue(stack.size() == size);
         assertFalse(stack.isEmpty());
     }
+
     @Test
-    public void fistSize()throws StackOverflowException{
-        sizeTest(defaultFirstStack,6);
+    public void fistSize() throws StackOverflowException {
+        sizeTest(defaultFirstStack, 6);
     }
+
     @Test
-    public void SecondfSize()throws StackOverflowException{
-        sizeTest(defaultSecoondStack,4);
+    public void SecondfSize() throws StackOverflowException {
+        sizeTest(defaultSecoondStack, 4);
     }
 
     //two tests to see both stacks overflow correctly
     @Test(expected = StackOverflowException.class)
-    public void overflowFirst()throws StackOverflowException{
-        pushLoop(10,defaultFirstStack);
-        assertTrue(defaultFirstStack.size()==DEFAULT_MAX_SIZE);
+    public void overflowFirst() throws StackOverflowException {
+        pushLoop(10, defaultFirstStack);
+        assertTrue(defaultFirstStack.size() == DEFAULT_MAX_SIZE);
         defaultFirstStack.push(new Object());
     }
+
     @Test(expected = StackOverflowException.class)
-    public void overflowSecond()throws StackOverflowException{
-        pushLoop(10,defaultSecoondStack);
-        assertTrue(defaultSecoondStack.size()==DEFAULT_MAX_SIZE);
+    public void overflowSecond() throws StackOverflowException {
+        pushLoop(10, defaultSecoondStack);
+        assertTrue(defaultSecoondStack.size() == DEFAULT_MAX_SIZE);
         defaultSecoondStack.push(new Object());
     }
 
     //two tests that see if the stacks overflow correctly when the other is also partially filled
-    private void halfFillBothStacks() throws StackOverflowException{
-        pushLoop(5,defaultFirstStack);
-        pushLoop(5,defaultSecoondStack);
-        assertTrue(defaultFirstStack.size()==5&&defaultSecoondStack.size()==5);
+    private void halfFillBothStacks() throws StackOverflowException {
+        pushLoop(5, defaultFirstStack);
+        pushLoop(5, defaultSecoondStack);
+        assertTrue(defaultFirstStack.size() == 5 && defaultSecoondStack.size() == 5);
 
     }
+
     @Test(expected = StackOverflowException.class)
-    public void overflowFirstBoth()throws StackOverflowException{
+    public void overflowFirstBoth() throws StackOverflowException {
         halfFillBothStacks();
         defaultFirstStack.push(new Object());
     }
+
     @Test(expected = StackOverflowException.class)
-    public void overflowSecondBoth()throws StackOverflowException {
+    public void overflowSecondBoth() throws StackOverflowException {
         halfFillBothStacks();
         defaultSecoondStack.push(new Object());
     }
 
     //tests pop and top for both stacks
     @Test(expected = StackEmptyException.class)
-    public void emptyPopFirst() throws StackEmptyException{
+    public void emptyPopFirst() throws StackEmptyException {
         defaultFirstStack.pop();
     }
+
     @Test(expected = StackEmptyException.class)
-    public void emptyPopSecond() throws StackEmptyException{
+    public void emptyPopSecond() throws StackEmptyException {
         defaultSecoondStack.pop();
     }
+
     @Test(expected = StackEmptyException.class)
-    public void emptyTopFirst() throws StackEmptyException{
+    public void emptyTopFirst() throws StackEmptyException {
         defaultFirstStack.top();
     }
+
     @Test(expected = StackEmptyException.class)
-    public void emptyTopSecond() throws StackEmptyException{
+    public void emptyTopSecond() throws StackEmptyException {
         defaultSecoondStack.top();
     }
-    private void popTest(IStack stack)throws StackEmptyException,StackOverflowException{
-        Object element=new Object();
+
+    private void popTest(IStack stack) throws StackEmptyException, StackOverflowException {
+        Object element = new Object();
         stack.push(element);
-        assertTrue(stack.pop()==element);
+        assertTrue(stack.pop() == element);
         assertTrue(stack.isEmpty());
     }
 
     @Test
-    public void pushPopFirst()throws StackOverflowException,StackEmptyException {
+    public void pushPopFirst() throws StackOverflowException, StackEmptyException {
         popTest(defaultFirstStack);
     }
 
     @Test
-    public void pushPopSecond()throws StackOverflowException,StackEmptyException {
+    public void pushPopSecond() throws StackOverflowException, StackEmptyException {
         popTest(defaultSecoondStack);
     }
 
-    private void topTest(IStack stack)throws StackEmptyException,StackOverflowException{
-        Object element=new Object();
+    private void topTest(IStack stack) throws StackEmptyException, StackOverflowException {
+        Object element = new Object();
         stack.push(element);
-        assertTrue(stack.top()==element);
-        assertTrue(stack.size()==1);
+        assertTrue(stack.top() == element);
+        assertTrue(stack.size() == 1);
     }
 
     @Test
-    public void pushTopFirst()throws StackEmptyException,StackOverflowException {
+    public void pushTopFirst() throws StackEmptyException, StackOverflowException {
         topTest(defaultFirstStack);
     }
+
     @Test
-    public void pushTopSecond()throws StackEmptyException,StackOverflowException {
+    public void pushTopSecond() throws StackEmptyException, StackOverflowException {
         topTest(defaultSecoondStack);
     }
 
-    private void clearTest(IStack stack,int size)throws StackOverflowException,StackEmptyException{
-        pushLoop(size,stack);
-        assertTrue(stack.size()==size);
+    private void clearTest(IStack stack, int size) throws StackOverflowException, StackEmptyException {
+        pushLoop(size, stack);
+        assertTrue(stack.size() == size);
         stack.clear();
-        assertTrue(stack.size()==0&&stack.isEmpty());
+        assertTrue(stack.size() == 0 && stack.isEmpty());
     }
 
     @Test
-    public void clearTestFirst()throws StackEmptyException,StackOverflowException{
-        clearTest(defaultFirstStack,8);
+    public void clearTestFirst() throws StackEmptyException, StackOverflowException {
+        clearTest(defaultFirstStack, 8);
     }
+
     @Test
-    public void clearTestSecond()throws StackEmptyException,StackOverflowException{
-        clearTest(defaultSecoondStack,8);
+    public void clearTestSecond() throws StackEmptyException, StackOverflowException {
+        clearTest(defaultSecoondStack, 8);
     }
 
 

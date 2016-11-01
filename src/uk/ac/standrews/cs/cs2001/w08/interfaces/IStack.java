@@ -5,13 +5,12 @@ import uk.ac.standrews.cs.cs2001.w08.common.StackOverflowException;
 
 /**
  * Simple stack interface.
- * 
  */
 public interface IStack {
 
     /**
      * Pushes an element onto the stack.
-     * 
+     *
      * @param element the element to be pushed
      * @throws StackOverflowException if there is no room on the stack for the new element
      */
@@ -19,7 +18,7 @@ public interface IStack {
 
     /**
      * Pops an element from the stack.
-     * 
+     *
      * @return the popped element
      * @throws StackEmptyException if the stack is empty
      */
@@ -27,7 +26,7 @@ public interface IStack {
 
     /**
      * Accesses the top element on the stack without removing it.
-     * 
+     *
      * @return the top element
      * @throws StackEmptyException if the stack is empty
      */
@@ -35,12 +34,14 @@ public interface IStack {
 
     /**
      * Returns the number of elements on the stack.
+     *
      * @return the number of elements on the stack
      */
     int size();
 
     /**
      * Checks whether the stack is empty.
+     *
      * @return true if the stack is empty
      */
     boolean isEmpty();

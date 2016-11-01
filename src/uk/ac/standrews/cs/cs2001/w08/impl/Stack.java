@@ -11,12 +11,12 @@ public class Stack implements IStack {
     private Data data;
     private Object[] array;
 
-    public Stack(Data data,int step, int start){
-        this.data=data;
-        this.start=start;
-        this.step=step;
-        array=data.getArray();
-        pos=start-step;
+    public Stack(Data data, int step, int start) {
+        this.data = data;
+        this.start = start;
+        this.step = step;
+        array = data.getArray();
+        pos = start - step;
 
     }
 
@@ -26,7 +26,7 @@ public class Stack implements IStack {
             while (pos != start - step) {
                 pop();
             }
-        }catch (StackEmptyException e){
+        } catch (StackEmptyException e) {
 
         }
 
@@ -34,7 +34,7 @@ public class Stack implements IStack {
 
     @Override
     public void push(Object element) throws StackOverflowException {
-        if(data.getSpare()==0) {
+        if (data.getSpare() == 0) {
             throw new StackOverflowException();
         }
         pos += step;
@@ -45,11 +45,11 @@ public class Stack implements IStack {
 
     @Override
     public Object pop() throws StackEmptyException {
-        if (pos==start-step){
+        if (pos == start - step) {
             throw new StackEmptyException();
         }
-        Object  pop = array[pos];
-        array[pos]=null;
+        Object pop = array[pos];
+        array[pos] = null;
         pos -= step;
 
         return pop;
@@ -58,21 +58,22 @@ public class Stack implements IStack {
 
     @Override
     public Object top() throws StackEmptyException {
-        if(pos==start-step){
+        if (pos == start - step) {
             throw new StackEmptyException();
         }
         return array[pos];
     }
 
-    @Override //Returns the size of the stack,by returning the positive diffrence of the start and current position plus 1
+    @Override
+    //Returns the size of the stack,by returning the positive diffrence of the start and current position plus 1
     //Example, array size = 10, first stack at position 2, (1+0+(2*1))= 3, 0,1,2, postions array
     //For the second Stack, at postions 8,(1+9+(8*-1))=2, index 8 and 9 in the array
     public int size() {
-        return 1+start+(pos*step);
+        return 1 + start + (pos * step);
     }
 
     @Override
     public boolean isEmpty() {
-        return pos==start-step;
+        return pos == start - step;
     }
 }
